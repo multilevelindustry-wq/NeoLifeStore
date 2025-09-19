@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>NEOLIFE E-commerce Network</title>
     <link href="./style.css" type="text/css" rel="stylesheet">
-  
+    <script src="https://www.paypalobjects.com/ncp/cart/cart.js" data-merchant-id="7FDNLZWQX57HS"></script>
 </head>
 <body>
     <div class="header">
@@ -16,6 +16,10 @@
                     <ul> 
                         <li><a href="blog.html    ">Our Blog</a></li>
                          <li><a href="">Universal Store</a></li>
+						<paypal-cart-button data-id="pp-view-cart"></paypal-cart-button>
+<script>
+  cartPaypal.Cart({ id: "pp-view-cart" })
+</script>
                     </ul>
                  
                 </nav>
