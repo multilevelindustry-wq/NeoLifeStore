@@ -458,3 +458,88 @@ footer .box-3{
     color: #fff;
     margin-right: 65px;
 }
+.col-8{
+  flex-basis: 5%;
+  padding: 10px;
+  width: 290px;
+  margin-bottom: 50px;
+  transition: transform 0.9s;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  border-radius: 10%;
+  font-weight: bold;
+  font-size: 30px;
+}
+.col-8 img{
+  width: 290px;
+  border-radius: 10%;
+}
+
+.location-1{
+    text-align: center;
+    margin-top: 400px;
+    margin-bottom: 400px;
+    height: 80px;
+    background-color: ;
+}
+
+.location-1 button{
+    font-size: 80px;
+    font-weight: bolder;
+}
+
+.location-2{
+    text-align: center;
+    margin-top: 400px;
+    margin-bottom: 20px;
+    height: 40px;
+}
+
+.location-2 button{
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+
+
+    
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+
+.small-container h4{
+    text-align: center;
+}
+
+
+#popup{
+    font-size: 30px;
+    width: 500px;
+    height: 250px;
+}
+
+#menu{
+    width: 400px;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 26px;
+  }
