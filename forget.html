@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script>
+        // Password recovery functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('forgotPassword').addEventListener('click', function() {
+                const email = prompt("Please enter your registered email address:");
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(user => user.email === email);
+
+                if (user) {
+                    alert(`Your password is: ${user.password}`); // In a real application, do not expose passwords like this
+                } else {
+                    alert("Email not found!");
+                }
+            });
+        });
+    </script>
+    <title>Password Recovery</title>
+</head>
+<body>
+    
+    
+    <div class="col-9">
+    <h1>Restore Your Store Password</h1>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <h2>
+        HIDE YOUR PASSWORD 
+    </h2>
+    <div class="registe">
+    <button id="forgotPassword">Forgot Password?</button>
+    </div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <div class="video-container">
+  <video  autoplay loop muted>
+    <source src="VID-20250901-WA0008.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  
+</video>
+</div>
+    </div>
+    
+    
+</body>
+</html>
