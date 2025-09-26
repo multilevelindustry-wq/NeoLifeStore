@@ -50,12 +50,12 @@ document.getElementById('login').addEventListener('submit', function(event) {
 // Logout after 10 minutes of inactivity
 setInterval(() => {
     const lastActivity = localStorage.getItem('lastActivity');
-    if (lastActivity && (Date.now() - lastActivity) > 60000) { // 10 minutes
+    if (lastActivity && (Date.now() - lastActivity) > 699999) { // 10 minutes
         alert("You have been logged out due to inactivity.");
         localStorage.removeItem('lastActivity');
         window.location.href = 'login.html'; // Redirect to login page
     }
-}, 60000); // Check every minute
+}, 699999); // Check every minute
 
 // Update last activity time on user interaction
 document.addEventListener('click', () => {
