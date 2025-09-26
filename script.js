@@ -53,7 +53,7 @@ setInterval(() => {
     if (lastActivity && (Date.now() - lastActivity) > 60000) { // 10 minutes
         alert("You have been logged out due to inactivity.");
         localStorage.removeItem('lastActivity');
-        window.location.href = 'http://localhost:8080/login%20.html'; // Redirect to login page
+        window.location.href = 'login.html'; // Redirect to login page
     }
 }, 60000); // Check every minute
 
