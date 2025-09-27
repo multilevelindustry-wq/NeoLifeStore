@@ -81,4 +81,22 @@ document.addEventListener('keypress', () => {
             });
         });
         
-        
+
+
+        function showAd(adId) {
+        document.getElementById(adId).style.display = 'flex';
+    }
+
+    function closeAd(adId) {
+        document.getElementById(adId).style.display = 'none';
+    }
+
+    window.onload = function() {
+        setTimeout(() => showAd('ad1'), 3000);
+        setTimeout(() => showAd('ad2'), 6000);
+        setTimeout(() => showAd('ad3'), 9000);
+    };
+
+
+
+
