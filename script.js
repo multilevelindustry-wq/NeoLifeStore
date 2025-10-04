@@ -1,3 +1,50 @@
+// Example product data (you can expand with all products)
+const products = [
+  { name: "Short Sleeve T-shirts", link: "770605.html", image: "Screenshot_20250928-113441.png", price: "$15.69" },
+  { name: "Men's New Racing", link: "770590.html", image: "Screenshot_20250928-113907.png", price: "$21.26" },
+  { name: "$20 discount on women fashion", link: "womencloth.html"},
+  { name: "Round Neck T-shirts", link: "770604.html", image: "Screenshot_20250928-120506.png", price: "$18.69" },
+  { name: "Men's Casual T-shirts", link: "770603.html", image: "Screenshot_20250928-120532.png", price: "$17.99" },
+  { name: "Round Neck Casual", link: "770602.html", image: "Screenshot_20250928-124029.png", price: "$18.79" },
+  { name: "Men's Fashion T-shirts", link: "770601.html", image: "Screenshot_20250928-124430.png", price: "$14.89" },
+  { name: "Party Ruffle Sleeve", link: "770636.html", image: "1758348599198.png", price: "$18.53" },
+  { name: "Flower Patchwork Wears", link: "770649.html", image: "1758293484173.png", price: "$12.47" }
+  // ➝ Keep adding all products from your site
+];
+
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
+
+searchInput.addEventListener("input", function () {
+  const query = this.value.toLowerCase();
+  searchResults.innerHTML = "";
+
+  if (query.length > 0) {
+    const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+
+    if (filtered.length > 0) {
+      filtered.forEach(p => {
+        const item = document.createElement("a");
+        item.href = p.link;
+        item.innerHTML = `
+          ${p.name} 
+        `;
+        searchResults.appendChild(item);
+      });
+    } else {
+      searchResults.innerHTML = "<p style='padding:8px;'>No results found</p>";
+    }
+
+    searchResults.style.display = "block";
+  } else {
+    searchResults.style.display = "none";
+  }
+});
+
+
+
+
+
 document.getElementById('register').addEventListener('submit', function(event) {
     event.preventDefault();
     
