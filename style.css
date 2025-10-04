@@ -25,29 +25,19 @@ body {
 
 
 .Paypal {
-   margin-left: -30px;
-   margin-bottom: -10;
+    margin-bottom: -30px;
+    width: -10px;
 }
 
 .headers{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 0px;
+  padding: 15px 20px;
   background: white;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 2px;
   height: 1.6rem;
-}
-
-
-button {
-    background: black;
-    color: whitesmoke;
-    max-width: 100%;
-    width: 80px;
-    border-radius: 5px;
-    font-weight: bolder;
 }
 
 
@@ -96,7 +86,7 @@ li2{
 }
 
 li3{
-    width: 5.7rem;
+    width: 5.5rem;
     font-size: 1rem;
     background: goldenrod;
     color: black;
@@ -119,9 +109,6 @@ li4{
     font-weight: bolder;
 }
 
-.nav ul li a {
-    list-style: none;
-}
 
 .navbar ul {
   display: flex;
@@ -139,10 +126,6 @@ li4{
   margin-top: -5px;
 }
 
- a{
-  text-decoration: none;
-  color: black;
-}
 
 .navbar ul li a:hover {
   color: #f39c12;
@@ -294,7 +277,7 @@ footer ul li a:hover {
 .search-box h1{
     font-size: 10px;
     text-align: center;
-    margin-top: 5px;
+    margin-top: -10px;
     color: black;
 }
 
@@ -348,9 +331,6 @@ footer ul li a:hover {
 #searchResults a:hover {
   background: #f4f4f4;
   }
-
-
-
 
 
 .location-1{
