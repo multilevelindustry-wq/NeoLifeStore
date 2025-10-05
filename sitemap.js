@@ -1,79 +1,100 @@
 // generate-sitemap.js
-// Auto Sitemap Generator for neolifestore.com (GitHub Pages compatible)
+// 🔥 Smart Sitemap Generator for neolifestore.com (GitHub Pages compatible)
+// Crawls your live website, builds a sitemap, and pings Google automatically.
 
 import fs from "fs";
 import fetch from "node-fetch";
+import * as cheerio from "cheerio";
 
 const SITE_URL = "https://neolifestore.com";
-
-// Optional JSON sources for your dynamic products or posts (if you have them)
-const PRODUCT_FEED = `${SITE_URL}/products.json`;
-const BLOG_FEED = `${SITE_URL}/blog.json`;
-
 const today = new Date().toISOString().split("T")[0];
 
-async function getData(url) {
+// 🧠 Pages to crawl for discovering more links
+const START_PAGES = [
+  "/",
+  "/women",
+  "/men",
+  "/supplements",
+  "/accessories",
+  "/blog",
+];
+
+// Crawl settings
+const MAX_DEPTH = 2; // crawl up to 2 levels deep
+const visited = new Set();
+const urls = new Set();
+
+// Fetch and parse a page
+async function crawlPage(path, depth = 0) {
+  if (depth > MAX_DEPTH || visited.has(path)) return;
+  visited.add(path);
+
   try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("No data");
-    return await res.json();
-  } catch {
-    return [];
+    const res = await fetch(`${SITE_URL}${path}`);
+    if (!res.ok) return;
+    const html = await res.text();
+    const $ = cheerio.load(html);
+
+    urls.add(path);
+
+    $("a[href]").each((_, el) => {
+      let href = $(el).attr("href");
+      if (!href) return;
+      if (href.startsWith(SITE_URL)) href = href.replace(SITE_URL, "");
+      if (
+        href.startsWith("/") &&
+        !href.startsWith("/#") &&
+        !href.includes(".jpg") &&
+        !href.includes(".png") &&
+        !href.includes(".jpeg") &&
+        !href.includes(".svg") &&
+        !href.includes(".pdf")
+      ) {
+        urls.add(href.split("?")[0]);
+        crawlPage(href, depth + 1);
+      }
+    });
+  } catch (e) {
+    console.log("❌ Error crawling:", path, e.message);
   }
 }
 
-async function buildSitemap() {
-  // Default site pages
-  const baseUrls = [
-    "/",
-    "/women",
-    "/men",
-    "/supplements",
-    "/accessories",
-    "/about",
-    "/contact",
-    "/blog",
-    "/privacy-policy",
-    "/terms-and-conditions",
-  ];
+async function generateSitemap() {
+  console.log("🔍 Crawling site for links...");
+  for (const start of START_PAGES) {
+    await crawlPage(start);
+  }
 
-  // Fetch dynamic data
-  const products = await getData(PRODUCT_FEED);
-  const blogs = await getData(BLOG_FEED);
+  const urlArray = Array.from(urls).sort();
 
-  // Build full URL list
-  const productUrls = products.map((p) => `/product/${p.slug}`);
-  const blogUrls = blogs.map((b) => `/blog/${b.slug}`);
-  const allUrls = [...baseUrls, ...productUrls, ...blogUrls];
+  console.log(`✅ Found ${urlArray.length} pages.`);
 
-  // Generate XML
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${allUrls
+  ${urlArray
     .map(
-      (url) => `
+      (path) => `
     <url>
-      <loc>${SITE_URL}${url}</loc>
+      <loc>${SITE_URL}${path}</loc>
       <lastmod>${today}</lastmod>
       <changefreq>weekly</changefreq>
-      <priority>${url === "/" ? "1.0" : "0.8"}</priority>
+      <priority>${path === "/" ? "1.0" : "0.8"}</priority>
     </url>`
     )
     .join("")}
   </urlset>`;
 
-  fs.writeFileSync("sitemap.xml", sitemap);
-  console.log("✅ Sitemap generated successfully");
+  fs.writeFileSync("sitemap.xml", xml);
+  console.log("📄 Sitemap.xml created successfully!");
 
-  // Notify Google automatically
+  // Ping Google
   try {
-    await fetch(
-      `https://www.google.com/ping?sitemap=${SITE_URL}/sitemap.xml`
-    );
-    console.log("📢 Notified Google of sitemap update");
+    await fetch(`https://www.google.com/ping?sitemap=${SITE_URL}/sitemap.xml`);
+    console.log("📢 Google notified of sitemap update!");
   } catch (e) {
-    console.log("⚠️ Google ping failed:", e.message);
+    console.log("⚠️ Could not ping Google:", e.message);
   }
 }
 
-buildSitemap();
+generateSitemap();
+    
